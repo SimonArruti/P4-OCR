@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Paiement</h1>
+    <p><a href="{{ path('cancel_command') }}">Annuler la commande</a></p>
+    <p>Consulter votre commande avant de procéder au paiement</p>
+    {{ dump(app.session.get('command')) }}
+
+    <table>
+        <thead>
+        <tr>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Billet</th>
+            <th>Prix</th>
+            <th>Supprimer</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for key, ticket in command.tickets %}
+            <tr>
+                <td>{{ ticket.firstname }}</td>
+                <td>{{ ticket.lastname }}</td>
+                <td>{{ ticket.ticketType }}</td>
+                <td>{{ ticket.price }} €</td>
+                <td><a href="{{ path('remove_ticket', { id: key }) }}">Supprimer</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div>
+        <h2>Votre commande</h2>
+        <p>Nombre de billets: {{ command.tickets | length }}</p>
+        <p>Prix total: {{ command.priceTotal }} €</p>
+    </div>
+
+    {% form_theme payment_form 'bootstrap_3_layout.html.twig' %}
+    {{ form_start(payment_form, { 'attr': { 'id': 'payment-form' } }) }}
+        <label for="card-element">
+            Votre carte bleue Visa
+        </label>
+
+        <div id="card-element">
+            <!-- a Stripe Element will be inserted here. -->
+        </div>
+
+        <!-- Used to display Element errors -->
+        <div id="card-errors"></div>
+    {{ form_end(payment_form) }}
+{% endblock %}
+{% block javascripts %}
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>const stripe = Stripe('{{ stripe_public }}');</script> {#Registering the public key#}
+    <script src="{{ asset('js/stripe.js') }}"></script>
+{% endblock %}
+
+

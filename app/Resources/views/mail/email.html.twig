@@ -1,0 +1,14 @@
+<h1>Musée du Louvre</h1>
+
+<p>Date de la réservation: Le {{ visitDay | date('d/m/Y')}} / {{ visitPeriod == "day" ? "Journée" : "Demi-journée" }}</p>
+<p>Prix total de la commande: {{ price }} €</p>
+<p>Code de la réservation: {{ code }}</p>
+
+<h3>Visiteurs</h3>
+<ul>
+    {% for ticket in tickets %}
+        <li>{{ ticket.firstname }} {{ ticket.lastname }}</li>
+    {% endfor %}
+</ul>
+
+<b>Bonne visite !</b>
