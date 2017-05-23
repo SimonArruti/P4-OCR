@@ -70,9 +70,9 @@ class PaymentController extends Controller
 
                     $this->get('app.hydrate')->sendMail($command);
 
-                    $session->getFlashBag()->add('command_success', 'La commande a bien été enregistrée. Vous allez très vite recevoir le récapitulatif de celle-ci par mail.');
+                    $session->getFlashBag()->add('command_success', 'La commande a bien été enregistrée. Vous allez très vite recevoir le récapitulatif de celle-ci par mail. Numéro de commande: ' . $command->getReservationCode());
 
-                    $this->get('app.session')->emptySession($session, $command);
+                    $this->get('app.session')->emptySession($session, 'command');
 
                     return $this->redirectToRoute("homepage");
                 }

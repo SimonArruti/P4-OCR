@@ -22,7 +22,5 @@ class CommandRepository extends EntityRepository
         ;
 
         return $query->getQuery()->getSingleScalarResult();
-
-
     }
 }

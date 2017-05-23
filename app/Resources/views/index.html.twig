@@ -14,27 +14,28 @@
                     {{ flashMessage }}
                 </div>
             {% endfor %}
-            <h1>Accueil</h1>
-            <p>Bienvenue sur la boutique de vente en ligne du Louvre!</p>
+            <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
+                <h1>Accueil</h1>
+                <p>Bienvenue sur la boutique de vente en ligne du Louvre!</p>
 
-            {{ form_start(data_form, { 'attr': { 'class': 'col-xs-12 col-sm-12 col-md-10 col-md-offset-1' } }) }}
-            <div class="form-group">
-                {{ form_label(data_form.visitDay, null, { 'label_attr': { 'class': 'control-label' } }) }}
-                {{ form_errors(data_form.visitDay, { 'attr': { 'class': 'alert alert-danger' } }) }}
-                {{ form_widget(data_form.visitDay, { 'attr': { 'class': 'form-control datepickette' } }) }}
-                <input type="hidden" id="alternate">
+                {{ form_start(data_form) }}
+                <div class="form-group">
+                    {{ form_label(data_form.visitDay, null, { 'label_attr': { 'class': 'control-label' } }) }}
+                    {{ form_errors(data_form.visitDay, { 'attr': { 'class': 'alert alert-danger' } }) }}
+                    {{ form_widget(data_form.visitDay, { 'attr': { 'class': 'form-control datepickette' } }) }}
+                    <input type="hidden" id="alternate">
+                </div>
+                {{ form_widget(data_form.visitDay) }}
+                <div class="form-group select-period">
+                    {{ form_label(data_form.visitPeriod,  null, { 'label_attr': { 'class': 'control-label' } }) }}
+                    {{ form_errors(data_form.visitPeriod, { 'attr': { 'class': 'alert alert-danger' } } ) }}
+                    {{ form_widget(data_form.visitPeriod, { 'attr': { 'class': 'form-control' } }) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(data_form.submit, { 'attr': { 'class': 'btn btn-primary submit-data-form' } }) }}
+                </div>
+                {{ form_end(data_form) }}
             </div>
-            {{ form_widget(data_form.visitDay) }}
-            <div class="form-group select-period">
-                {{ form_label(data_form.visitPeriod,  null, { 'label_attr': { 'class': 'control-label' } }) }}
-                {{ form_errors(data_form.visitPeriod, { 'attr': { 'class': 'alert alert-danger' } } ) }}
-                {{ form_widget(data_form.visitPeriod, { 'attr': { 'class': 'form-control' } }) }}
-            </div>
-            <div class="form-group">
-                {{ form_widget(data_form.submit, { 'attr': { 'class': 'btn btn-primary submit-data-form' } }) }}
-            </div>
-            {{ form_end(data_form) }}
-
             <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
                 <div class="tickets-counter-container">
                     <div class="alert alert-info">
