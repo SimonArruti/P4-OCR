@@ -17,7 +17,7 @@ class Price
      * @param Ticket $ticket
      * @return string
      */
-    public function getTicketType (Ticket $ticket)
+    private function getTicketType (Ticket $ticket)
     {
         $date = $ticket->getBirthDate()->date;
 
@@ -61,7 +61,7 @@ class Price
      * @param string $ticketType
      * @return int
      */
-    public function getPrice (string $ticketType)
+    private function getPrice (string $ticketType)
     {
         switch ($ticketType) {
             case "normal" :
@@ -83,5 +83,19 @@ class Price
             default :
                 return 0;
         }
+    }
+
+    public function getTicketTypeAndPrice ($tickets)
+    {
+        foreach ($tickets as $key => $ticket) {
+            $ticket_type = $this->getTicketType($ticket);
+
+            $price = $this->getPrice($ticket_type);
+
+            $ticket->setTicketType($ticket_type);
+            $ticket->setPrice($price);
+        }
+
+        return $tickets;
     }
 }

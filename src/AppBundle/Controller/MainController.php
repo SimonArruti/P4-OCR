@@ -6,10 +6,12 @@ use AppBundle\Entity\Command;
 use AppBundle\Entity\Ticket;
 use AppBundle\Form\CommandType;
 use AppBundle\Form\TicketType;
+use function intval;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use function var_dump;
 
 class MainController extends Controller
 {
@@ -113,14 +115,10 @@ class MainController extends Controller
      *
      * @Route("/api/tickets/count/{date}", name="ajax_counter")
      */
-    public function countTicketsByDaysAction (string $date) {
-        $conn = $this->get('database_connection');
-        $query = $conn->prepare("SELECT * FROM command WHERE visit_day = :date");
-        $query->execute(array("date" => $date));
-
-        $results = $query->fetchAll();
-
-        $tickets_number = array_sum(array_column($results, 'tickets_bought'));
+    public function countTicketsByDaysAction (string $date)
+    {
+        $em = $this->getDoctrine()->getRepository('AppBundle:Command');
+        $tickets_number = intval($em->countTicketsByDays($date));
 
         return new Response(json_encode($tickets_number));
     }
@@ -134,8 +132,6 @@ class MainController extends Controller
     {
         $session = $request->getSession();
         $number_tickets_left = $this->countTicketsByDaysAction($date);
-
-        //var_dump($session->get('command')->getTickets());
 
         if (count($session->get('command')->getTickets()) === (10 - $number_tickets_left->getContent())) {
             return false;

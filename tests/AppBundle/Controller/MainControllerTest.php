@@ -10,7 +10,7 @@ class MainControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/');
 
-        $this->assertEquals(1, $crawler->filter('form.form-inline')->count());
+        $this->assertEquals(1, $crawler->filter('h1:contains("Accueil")')->count());
     }
 
     public function testRedirectIfNoSession () {

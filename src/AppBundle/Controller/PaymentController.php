@@ -8,16 +8,13 @@
 
 namespace AppBundle\Controller;
 
-
 use AppBundle\Form\PaymentType;
-use function count;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Stripe\Charge;
 use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use function var_dump;
 
 class PaymentController extends Controller
 {
@@ -40,16 +37,8 @@ class PaymentController extends Controller
         }
         else {
             $command = $session->get('command');
-            $tickets = $command->getTickets();
 
-            foreach ($tickets as $key => $ticket) {
-                $ticket_type = $this->get('app.price')->getTicketType($ticket);
-
-                $price = $this->get('app.price')->getPrice($ticket_type);
-
-                $ticket->setTicketType($ticket_type);
-                $ticket->setPrice($price);
-            }
+            $tickets = $this->get('app.price')->getTicketTypeAndPrice($command->getTickets());
 
             $prices = array_column($tickets->toArray(), 'price');
             $total = array_sum($prices);
@@ -69,8 +58,6 @@ class PaymentController extends Controller
                 $price = $command->getPriceTotal();
                 $customer_email = $form->getData()['customer_email'];
 
-                // TODO try catch
-
                 try {
                     $charge = Charge::create(array(
                         "amount" => $price . "00",
@@ -78,19 +65,22 @@ class PaymentController extends Controller
                         "description" => "Louvre tickets bought by " . $customer_email,
                         "source" => $token
                     ));
+
+                    $this->get('app.hydrate')->addCommandToDatabase($command, $customer_email, $price);
+
+                    $this->get('app.hydrate')->sendMail($command);
+
+                    $session->getFlashBag()->add('command_success', 'La commande a bien été enregistrée. Vous allez très vite recevoir le récapitulatif de celle-ci par mail.');
+
+                    $this->get('app.session')->emptySession($session, $command);
+
+                    return $this->redirectToRoute("homepage");
                 }
                 catch (Exception $exception) {
-                    $this->redirectToRoute('payment');
+                    $session->getFlashBag()->add('command_fail', 'La commande a échouée. Veuillez réessayer.');
+
+                    return $this->redirect($request->headers->get('referer'));
                 }
-
-                $this->get('app.hydrate')->addCommandToDatabase($command, $customer_email, $price);
-
-                $this->get('app.hydrate')->sendMail($command);
-
-                $session->getFlashBag()->add('command_success', 'La commande a bien été enregistrée. Vous allez très vite recevoir le récapitulatif de celle-ci par mail.');
-
-
-                return $this->redirectToRoute("homepage");
             }
 
             return $this->render('payment.html.twig', array("command" => $session->get('command'), "payment_form" => $form->createView()));

@@ -1,46 +1,47 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Command</h1>
-    {{ dump(command) }}
-    <p>Date de la visite: {{ command.visitDay | date('d/m/Y') }}</p>
-    <p>Type de visite: {{ command.visitPeriod == "day" ? "Journée" : "Demi-journée" }}</p>
+    <div class="col-md-10 col-md-offset-1">
+        <h1>Command</h1>
+        {{ dump(command) }}
+        <p>Date de la visite: {{ command.visitDay | date('d/m/Y') }}</p>
+        <p>Type de visite: {{ command.visitPeriod == "day" ? "Journée" : "Demi-journée" }}</p>
 
-    <h2>Ajouter un ticket</h2>
-    <p>Si vous n'êtes pas satisfait de votre commande, vous pourrez toujours l'éditer avant de passer au paiement</p>
+        <h2>Ajouter un ticket</h2>
+        <p>Si vous n'êtes pas satisfait de votre commande, vous pourrez toujours l'éditer avant de passer au paiement</p>
 
-    {% for flashMessage in app.session.flashbag.get('error') %}
-        {{ flashMessage }}
-    {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            {{ flashMessage }}
+        {% endfor %}
 
-    {% form_theme ticket_form 'bootstrap_3_layout.html.twig' %}
-    {{ form_start(ticket_form) }}
-    {{ form_end(ticket_form) }}
+        {% form_theme ticket_form 'bootstrap_3_layout.html.twig' %}
+        {{ form_start(ticket_form) }}
+        {{ form_end(ticket_form) }}
 
-    {% if command.tickets is empty %}
-        <p>Aucun billet</p>
-    {% else %}
-        <table>
-            <thead>
-            <tr>
-                <th>Prénom</th>
-                <th>Nom</th>
-                <th>Né le</th>
-                <th>Supprimer le ticket</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for key, ticket in command.tickets %}
+        {% if command.tickets is empty %}
+            <p>Aucun billet</p>
+        {% else %}
+            <table class="table table-hover">
+                <thead>
                 <tr>
-                    <td>{{ ticket.firstname }}</td>
-                    <td>{{ ticket.lastname }}</td>
-                    <td>{{ ticket.birthdate | date('d/m/y') }}</td>
-                    <td><a href="{{ path('remove_ticket', { id: key }) }}">Supprimer</a></td>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Né le</th>
+                    <th>Supprimer le ticket</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        <p><a href="{{ path('payment') }}">Valider</a></p>
-    {% endif %}
-
+                </thead>
+                <tbody>
+                {% for key, ticket in command.tickets %}
+                    <tr>
+                        <td>{{ ticket.firstname }}</td>
+                        <td>{{ ticket.lastname }}</td>
+                        <td>{{ ticket.birthdate | date('d/m/y') }}</td>
+                        <td><a href="{{ path('remove_ticket', { id: key }) }}">Supprimer</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <p><a href="{{ path('payment') }}" class="btn btn-success">Valider</a></p>
+        {% endif %}
+    </div>
 {% endblock %}
