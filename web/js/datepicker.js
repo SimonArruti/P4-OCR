@@ -88,9 +88,9 @@ let countTickets = function (date) {
             let container = $('.tickets-counter-container')
             container.show()
             let title = $('#tickets-counter')
-            title.text("Il reste " + (10 - data) + " billets disponibles pour cette date.")
+            title.text("Il reste " + (1000 - data) + " billets disponibles pour cette date.")
 
-            if ((10 - data) === 0) {
+            if ((1000 - data) === 0) {
                 $('.submit-data-form').attr("disabled", "disable")
             }
             else {

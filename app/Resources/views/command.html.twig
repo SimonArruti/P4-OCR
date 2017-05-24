@@ -2,13 +2,13 @@
 
 {% block body %}
     <div class="col-md-10 col-md-offset-1">
-        <h1>Command</h1>
+        <h1>Commande</h1>
        {# {{ dump(command) }}#}
         <p>Date de la visite: {{ command.visitDay | date('d/m/Y') }}</p>
         <p>Type de visite: {{ command.visitPeriod == "day" ? "Journée" : "Demi-journée" }}</p>
 
         <h2>Ajouter un ticket</h2>
-        <p>Si vous n'êtes pas satisfait de votre commande, vous pourrez toujours l'éditer avant de passer au paiement</p>
+        <p>Si vous n'êtes pas satisfait de votre commande, vous pourrez toujours l'éditer avant de passer au paiement.</p>
 
         {% for flashMessage in app.session.flashbag.get('error') %}
             {{ flashMessage }}

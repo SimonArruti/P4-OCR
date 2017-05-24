@@ -51,7 +51,7 @@ class TicketType extends AbstractType
                 )
             ))
             ->add('reduce', CheckboxType::class, array(
-                "label" => "Tarif réduit ?",
+                "label" => "Tarif réduit ? (Etudiants, militaires, employés du musée, du ministère de la Culture.)",
                 "required" => false
             ))
             ->add('submit', SubmitType::class, array(
