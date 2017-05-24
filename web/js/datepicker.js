@@ -71,7 +71,6 @@ let onDateSelect = function () {
 
     // inversion de "day" et "month" pour l'affichage
     let date = [year, month, day].join('-')
-    console.log(date)
     countTickets(date)
 
     $('.select-period').show()
@@ -79,7 +78,6 @@ let onDateSelect = function () {
 }
 
 let countTickets = function (date) {
-    console.log(date)
     $.ajax({
         url: '/api/tickets/count/' + date,
         type: "GET",
@@ -91,7 +89,13 @@ let countTickets = function (date) {
             container.show()
             let title = $('#tickets-counter')
             title.text("Il reste " + (10 - data) + " billets disponibles pour cette date.")
-            console.log(data)
+
+            if ((10 - data) === 0) {
+                $('.submit-data-form').attr("disabled", "disable")
+            }
+            else {
+                $('.submit-data-form').removeAttr("disabled")
+            }
         }
 
     })

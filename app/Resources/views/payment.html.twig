@@ -11,7 +11,7 @@
         {% endfor %}
         <p><a href="{{ path('cancel_command') }}">Annuler la commande</a></p>
         <p>Consulter votre commande avant de procéder au paiement</p>
-        {{ dump(app.session.get('command')) }}
+        {#{{ dump(app.session.get('command')) }}#}
 
         <table class="table table-hover">
             <thead>
