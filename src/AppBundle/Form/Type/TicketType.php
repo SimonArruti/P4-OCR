@@ -15,6 +15,7 @@ use Symfony\Component\Validator\Constraints\Country;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class TicketType extends AbstractType
 {
@@ -28,6 +29,10 @@ class TicketType extends AbstractType
                 "label" => "Prénom",
                 "constraints" => array(
                     new NotBlank(),
+                    new Regex(array(
+                        "pattern" => "/^[a-zA-Z]*$/",
+                        "message" => "Le champ ne peut comporter que des lettres de A à Z."
+                    )),
                     new Length(array('min' => 2, 'minMessage' => "Le champ prénom doit contenir au moins 2 caractères."))
                 )
             ))
@@ -35,6 +40,10 @@ class TicketType extends AbstractType
                 "label" => "Nom",
                 "constraints" => array(
                     new NotBlank(),
+                    new Regex(array(
+                        "pattern" => "/^[a-zA-Z]*$/",
+                        "message" => "Le champ ne peut comporter que des lettres de A à Z."
+                    )),
                     new Length(array('min' => 2, 'minMessage' => "Le champ nom doit contenir au moins 2 caractères."))
                 )
             ))
