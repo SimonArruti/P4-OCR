@@ -1,5 +1,6 @@
 {
     "name": "simonarruti/louvre-2",
+    "description": "Project 4 Openclassrooms",
     "license": "proprietary",
     "type": "project",
     "autoload": {
