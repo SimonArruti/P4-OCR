@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use function range;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -40,6 +41,7 @@ class TicketType extends AbstractType
             ->add('birthDate', BirthdayType::class, array(
                 "label" => "Date de naissance",
                 "format" => "dd MM yyyy",
+                "years" => range(\date('Y') - 90, \date('Y')),
                 "constraints" => array(
                     new Date(array("message" => "Valeur invalide."))
                 )

@@ -12,7 +12,7 @@ class PriceTest extends TestCase
         $ticket->setFirstname('Carl');
 
         $date = new DateTime('1955-05-07');
-        var_dump($date);
+
         $ticket->setBirthDate($date);
 
         $price = new Price();

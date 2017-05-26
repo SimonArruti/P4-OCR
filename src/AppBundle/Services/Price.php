@@ -17,11 +17,10 @@ class Price
      * @param Ticket $ticket
      * @return string
      */
-    private function getTicketType (Ticket $ticket)
+    public function getTicketType (Ticket $ticket)
     {
-        $date = $ticket->getBirthDate()->date;
+        $date = $ticket->getBirthDate();
 
-        $date = new \DateTime($date);
         $now = new \DateTime();
         $interval = $now->diff($date);
 
@@ -61,7 +60,7 @@ class Price
      * @param string $ticketType
      * @return int
      */
-    private function getPrice (string $ticketType)
+    public function getPrice (string $ticketType)
     {
         switch ($ticketType) {
             case "normal" :
