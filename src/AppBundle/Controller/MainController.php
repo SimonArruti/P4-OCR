@@ -47,7 +47,7 @@ class MainController extends Controller
     {
         $session = $request->getSession();
 
-        if ($session->get('command') === null || $session->get('command')->getVisitDay() == null) {
+        if ($session->get('command') === null || $session->get('command')->getVisitDay() === null) {
             return $this->redirectToRoute('homepage');
         }
         else {
