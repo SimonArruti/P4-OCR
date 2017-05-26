@@ -19,4 +19,4 @@ parameters:
     stripe_secret: ~
 
     # A secret key that's used to generate certain security-related tokens
-    secret: ThisTokenIsNotSoSecretChangeIt
+    secret: 2a03e3c99bf27a7804c3c128447f0009245aa7d1
