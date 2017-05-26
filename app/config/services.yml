@@ -17,3 +17,6 @@ services:
     app.hydrate:
         class: AppBundle\Services\HydrateDBSendMail
         autowire: true
+
+    app.stripe:
+        class: AppBundle\Services\StripeService

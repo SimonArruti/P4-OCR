@@ -17,6 +17,31 @@ $(function () {
             onDateSelect()
         }
     }).attr("readonly", "readonly");
+
+    $.datepicker.regional['fr'] = {
+        closeText: 'Fermer',
+        prevText: '&#x3c;Préc',
+        nextText: 'Suiv&#x3e;',
+        currentText: 'Aujourd\'hui',
+        monthNames: ['Janvier','Fevrier','Mars','Avril','Mai','Juin',
+            'Juillet','Aout','Septembre','Octobre','Novembre','Decembre'],
+        monthNamesShort: ['Jan','Fev','Mar','Avr','Mai','Jun',
+            'Jul','Aou','Sep','Oct','Nov','Dec'],
+        dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+        dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
+        dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
+        weekHeader: 'Sm',
+        dateFormat: 'dd-mm-yy',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        minDate: 0,
+        maxDate: '+12M +0D',
+        numberOfMonths: 1,
+        showButtonPanel: true
+    };
+    $.datepicker.setDefaults($.datepicker.regional['fr']);
 })
 
 let disableFullDay = function (value) {
@@ -30,17 +55,17 @@ let disableFullDay = function (value) {
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
 
-    let fullDate = [day, month, year].join('/')
-    //console.log(value, fullDate)
+    let fullDate = [day, month, year].join('-')
+    console.log(value, fullDate)
 
     if (actualHour > maxHour && value === fullDate) {
         $('.select-period-full').remove()
-        //console.log(true)
+        console.log(true)
     }
     else {
         $('.select-period-full').remove()
         $('#appbundle_command_visitPeriod').prepend("<option class='select-period-full' value='day' selected>Journée</option>")
-        //console.log(false)
+        console.log(false)
     }
 }
 

@@ -10,6 +10,8 @@ namespace AppBundle\Services;
 
 
 use AppBundle\Entity\Ticket;
+use function dump;
+use function var_dump;
 
 class Price
 {
@@ -26,33 +28,33 @@ class Price
 
         $age = $interval->y;
 
-        switch ($age) {
-            case $ticket->isReduce() && ($age >= 4 && $age <= 12) :
-                return "enfant";
+        if ($ticket->isReduce() && ($age >= 4 && $age <= 12)) {
 
-                break;
-            case $ticket->isReduce() && $age < 4 :
-                return "free";
+            return "enfant";
+        }
+        elseif ($ticket->isReduce() && $age < 4) {
 
-                break;
-            case $ticket->isReduce() :
-                return "reduce";
+            return "free";
+        }
+        elseif ($ticket->isReduce()) {
 
-                break;
-            case $age >= 4 && $age <= 12 :
-                return "enfant";
+            return "reduce";
+        }
+        elseif ($age >= 4 && $age <= 12) {
 
-                break;
-            case $age > 12 && $age < 60 :
-                return "normal";
+            return "enfant";
+        }
+        elseif ($age > 12 && $age < 60) {
 
-                break;
-            case $age > 60 :
-                return "senior";
+            return "normal";
+        }
+        elseif ($age > 60) {
 
-                break;
-            default :
-                return "free";
+            return "senior";
+        }
+        else {
+
+            return "free";
         }
     }
 

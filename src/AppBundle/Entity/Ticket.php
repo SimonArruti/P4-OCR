@@ -246,7 +246,7 @@ class Ticket
     /**
      * @return bool
      */
-    public function isReduce() : ?bool
+    public function isReduce()
     {
         return $this->reduce;
     }

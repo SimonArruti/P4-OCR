@@ -8,7 +8,7 @@
 <h3>Visiteurs</h3>
 <ul>
     {% for ticket in tickets %}
-        <li>{{ ticket.firstname }} {{ ticket.lastname }}</li>
+        <li>{{ ticket.firstname }} {{ ticket.lastname }} | {{ ticket.price }}</li>
     {% endfor %}
 </ul>
 

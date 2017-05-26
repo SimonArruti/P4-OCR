@@ -17,18 +17,10 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class SessionService
 {
     /**
-     * @param Request $request
+     * @param SessionInterface $session
      * @param Ticket $ticket
      * @return bool
      */
-    /*public function addTicketToSession (Request $request, Ticket $ticket)
-    {
-        $session = $request->getSession();
-        $session->get('command')->addTicket($ticket);
-
-        return true;
-    }*/
-
     public function addTicketToSession (SessionInterface $session,  Ticket $ticket)
     {
         //$session = $request->getSession();
@@ -38,7 +30,7 @@ class SessionService
     }
 
     /**
-     * @param Request $request
+     * @param SessionInterface $session
      * @param int $id
      * @return bool
      */
