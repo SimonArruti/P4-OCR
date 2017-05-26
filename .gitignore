@@ -15,4 +15,3 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
-app/config/config.yml
