@@ -10,8 +10,6 @@ namespace AppBundle\Services;
 
 
 use AppBundle\Entity\Ticket;
-use Symfony\Component\HttpFoundation\Request;
-use \Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class SessionService
@@ -23,7 +21,6 @@ class SessionService
      */
     public function addTicketToSession (SessionInterface $session,  Ticket $ticket)
     {
-        //$session = $request->getSession();
         $session->get('command')->addTicket($ticket);
 
         return true;

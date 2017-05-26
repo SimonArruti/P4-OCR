@@ -4,14 +4,12 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Command;
 use AppBundle\Entity\Ticket;
-use AppBundle\Form\CommandType;
-use AppBundle\Form\TicketType;
-use function intval;
+use AppBundle\Form\Type\CommandType;
+use AppBundle\Form\Type\TicketType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use function var_dump;
 
 class MainController extends Controller
 {
@@ -49,7 +47,7 @@ class MainController extends Controller
     {
         $session = $request->getSession();
 
-        if ($session->get('command') == null || $session->get('command')->getVisitDay() == null) {
+        if ($session->get('command') === null || $session->get('command')->getVisitDay() == null) {
             return $this->redirectToRoute('homepage');
         }
         else {

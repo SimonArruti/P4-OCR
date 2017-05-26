@@ -8,10 +8,8 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Form\PaymentType;
-use Exception;
+use AppBundle\Form\Type\PaymentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Stripe\Charge;
 use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,10 +21,10 @@ class PaymentController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function payment (Request $request) {
+    public function paymentAction (Request $request) {
         $session = $request->getSession();
 
-        if ($session->get('command') == null) {
+        if ($session->get('command') === null) {
             return $this->redirectToRoute('homepage');
         } elseif (count($session->get('command')->getTickets()) === 0) {
             return $this->redirectToRoute('command');

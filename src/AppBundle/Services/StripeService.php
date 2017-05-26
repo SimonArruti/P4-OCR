@@ -10,7 +10,7 @@ class StripeService
     public function stripe (int $price, string $customer_email, string $token)
     {
         try {
-            $charge = Charge::create(array(
+            Charge::create(array(
                 "amount" => $price . "00",
                 "currency" => "eur",
                 "description" => "Louvre tickets bought by " . $customer_email,

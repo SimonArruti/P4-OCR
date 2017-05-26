@@ -10,8 +10,6 @@ namespace AppBundle\Services;
 
 
 use AppBundle\Entity\Ticket;
-use function dump;
-use function var_dump;
 
 class Price
 {
